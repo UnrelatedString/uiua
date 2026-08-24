@@ -295,6 +295,7 @@ static UNDER_PATTERNS: &[&dyn UnderPattern] = &[
         (PopUnd(1), Sys(SysOp::RawMode)),
     )),
     // Patterns that need to be last
+    &UnderUnderPat,
     &StashAntiPat,
     &FlipPat,
     &DipPat,
@@ -1336,6 +1337,10 @@ under!(
         ))
     }
 );
+
+under!(UnderUnderPat, _input, _g_sig, _inverse, _asm, {
+    Err(InversionError::Pretty)
+});
 
 under!(ConstPat, input, _, _, asm, {
     let (input, val) = Val.invert_extract(input, asm)?;
