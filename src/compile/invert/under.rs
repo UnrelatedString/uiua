@@ -1338,7 +1338,11 @@ under!(
     }
 );
 
-under!(UnderUnderPat, _input, _g_sig, _inverse, _asm, {
+under!(UnderUnderPat, input, _g_sig, _inverse, _asm, {
+    println!("{:?}", input);
+    let [Mod(Under, _args, _span), _input @ ..] = input else {
+        return generic();
+    };
     Err(InversionError::Pretty)
 });
 
